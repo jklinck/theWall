@@ -22,84 +22,76 @@ $comments= fetch($comment_query);
 	<head>
 		<meta charset="utf-8">
 		<title>The Wall</title>
+		<link rel="stylesheet" type="text/css" href="mywall.css">
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-		<style>
-			body{
-				padding-left: 20px;
-				padding-top: 20px;
-			}
-			#logout{
-				background-color:red; 
-				color:white; 
-				border-radius: 5px;
-			}
-			#message{
-				background-color: blue;
-				color: white;
-				border-radius: 5px;
-			}
-			#comment{
-				background-color: green;
-				color: white;
-				border-radius: 5px;
-			}
-		</style>
 	</head>
 	<body>
-		<h1>Welcome to THE WALL <?php echo $_SESSION['user'] ?>, you have 
-			successfully logged in!</h1>
-
-		<!-- errors -->
-		<?php
-			if(isset($_SESSION['errors']))
-			{
-				foreach($_SESSION['errors'] as $error)
-				{
-					echo $error. "<br />";
-				}
-				unset($_SESSION['errors']);
-			}
-		?>
-		<!-- log out routine -->
-		<form action="mywall_process.php" method="post">
-			<input type="hidden" name="action" value="logout">
-			<input id="logout" type="submit" value="Logout">
-		</form>
-		<!-- post a message -->
-		<form action="mywall_messages.php" method="post">
-			<h3>Post a message</h3>
-			<textarea style="width: 500px; height: 50px" name="message"></textarea><br>
-			<input type="hidden" name="action" value="message">
-			<input id="message" type="submit" value="Post a message!"><br></br>
-		</form>
-		<?php
-				foreach($messages as $message)
-				{
-					echo '<strong>'.$message['first_name'].' '.$message['last_name']
-					.' '.$message['created_at'].'</strong>'.'<br>'.
-					$message['message'].'<br></br>';
-					foreach($comments as $comment)
-					{
-						if($comment['message_id'] == $message['id'])
-						{
-							echo '<strong>'.$comment['first_name'].' '
-							.$comment['last_name'].' '
-							.$comment['created_at'].'</strong>'.'<br>'.' '.
-							$comment['comment'].'<br></br>';
-						}
-					}
-					?><!-- post a comment -->
-				<form action="mywall_messages.php" method="post">
-					<h3>Post a comment: </h3>
-					<textarea style="width: 500px; height: 50px" name="comment"></textarea><br>
-					<input type="hidden" name="action" value="comment">
-					<input type="hidden" name="message_id" value="<?php echo $message['id']?>">
-					<input id="comment" type="submit" value="Post a comment!">
+		<div class="container-fluid">
+			<h1>Welcome <?php echo $_SESSION['user'] ?>, you have 
+					successfully logged in!</h1>
+					<!-- log out routine -->
+				<form action="mywall_process.php" method="post">
+					<input type="hidden" name="action" value="logout">
+					<button id="logOut" type="submit" class="btn btn-danger">Log out</button>
 				</form>
-				<hr>
+			<div class="jumbotron">
+				<!-- errors -->
 				<?php
-				}
+					if(isset($_SESSION['errors']))
+					{
+						foreach($_SESSION['errors'] as $error)
+						{
+							echo $error. "<br />";
+						}
+						unset($_SESSION['errors']);
+					}
 				?>
+				<!-- post a message -->
+				<form action="mywall_messages.php" method="post">
+					<h3>Post a message</h3>
+					<textarea style="width: 500px; height: 50px" name="message"></textarea><br>
+					<input type="hidden" name="action" value="message">
+					<button id="message" type="submit" class="btn btn-primary">Post a message!</button><br></br>
+				</form>
+				<?php
+						foreach($messages as $message)
+						{
+							echo '<strong>'.$message['first_name'].' '.$message['last_name']
+							.' '.$message['created_at'].'</strong>'.'<br>'.
+							$message['message'].'<br></br>';
+							?>
+							<div class="row">
+								<div class="col-xs-2"
+								</div>
+								<div class="col-xs-10">
+									<?php
+									foreach($comments as $comment)
+									{
+										if($comment['message_id'] == $message['id'])
+										{
+											echo '<strong>'.$comment['first_name'].' '
+											.$comment['last_name'].' '
+											.$comment['created_at'].'</strong>'.'<br>'.' '.
+											$comment['comment'].'<br></br>';
+										}
+									}
+									?>
+								</div>
+							</div>
+						<!-- post a comment -->
+						<form action="mywall_messages.php" method="post">
+							<h3>Post a comment: </h3>
+							<textarea style="width: 500px; height: 50px" name="comment"></textarea><br>
+							<input type="hidden" name="action" value="comment">
+							<input type="hidden" name="message_id" value="<?php echo $message['id']?>">
+							<button id="comment" type="submit" class="btn btn-success">Post a comment!</button
+						</form>
+						<hr>
+						<?php
+						}
+						?>
+			</div>
+		</div>
 	</body>
 </html>

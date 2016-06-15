@@ -6,6 +6,7 @@ session_start();
 	<head>
 		<meta charset="utf-8">
 		<title>The Wall</title>
+		<link rel="stylesheet" type="text/css" href="mywall.css">
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<style>
@@ -38,6 +39,9 @@ session_start();
 		</div>
 	<body>
 		<div class="container">
+			<div class="row">
+				<h1 class="text-center wall">The Wall</h1>
+			</div>
 			<div class="jumbotron">
 				<div class="row">
 					<div class="col-xs-2">
