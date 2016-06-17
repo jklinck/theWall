@@ -61,7 +61,7 @@ $comments= fetch($comment_query);
 						foreach($messages as $message)
 						{
 							echo '<strong>'.$message['first_name'].' '.$message['last_name']
-							.' '.$message['created_at'].'</strong>'.'<br>'.
+							.' - '.date('F j Y',strtotime($message['created_at'])).'</strong>'.'<br>'.
 							$message['message'].'<br></br>';
 							?>
 							
@@ -71,8 +71,9 @@ $comments= fetch($comment_query);
 										if($comment['message_id'] == $message['id'])
 										{
 											echo '<strong>'.$comment['first_name'].' '
-											.$comment['last_name'].' '
-											.$comment['created_at'].'</strong>'.'<br>'.' '.
+											.$comment['last_name'].' - '
+											.date('F j Y',strtotime($message['created_at'])).
+											'</strong>'.'<br>'.' '.
 											$comment['comment'].'<br></br>';
 										}
 									}
@@ -87,7 +88,7 @@ $comments= fetch($comment_query);
 							<input type="hidden" name="message_id" value="<?php echo $message['id']?>">
 							<button id="comment" type="submit" class="btn btn-success">Post a comment!</button
 						</form>
-						<hr style="border-color:black">
+						<hr class="line">
 						<?php
 						}
 						?>
