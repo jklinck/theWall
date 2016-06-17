@@ -47,12 +47,15 @@ $comments= fetch($comment_query);
 						unset($_SESSION['errors']);
 					}
 				?>
+				<div class="row">
 				<!-- post a message -->
 				<form action="mywall_messages.php" method="post">
 					<h3>Post a message</h3>
-					<textarea style="width: 500px; height: 50px" name="message"></textarea><br>
-					<input type="hidden" name="action" value="message">
-					<button id="message" type="submit" class="btn btn-primary">Post a message!</button><br></br>
+					<div class="form-group">
+						<textarea class="form-control" name="message"></textarea>
+					</div>
+						<input type="hidden" name="action" value="message">
+						<button id="message" type="submit" class="btn btn-primary">Post a message!</button><br></br>
 				</form>
 				<?php
 						foreach($messages as $message)
@@ -61,10 +64,7 @@ $comments= fetch($comment_query);
 							.' '.$message['created_at'].'</strong>'.'<br>'.
 							$message['message'].'<br></br>';
 							?>
-							<div class="row">
-								<div class="col-xs-2"
-								</div>
-								<div class="col-xs-10">
+							
 									<?php
 									foreach($comments as $comment)
 									{
@@ -77,21 +77,22 @@ $comments= fetch($comment_query);
 										}
 									}
 									?>
-								</div>
-							</div>
 						<!-- post a comment -->
 						<form action="mywall_messages.php" method="post">
 							<h3>Post a comment: </h3>
-							<textarea style="width: 500px; height: 50px" name="comment"></textarea><br>
+							<div class="form-group">
+								<textarea class="form-control" name="comment"></textarea>
+							</div>
 							<input type="hidden" name="action" value="comment">
 							<input type="hidden" name="message_id" value="<?php echo $message['id']?>">
 							<button id="comment" type="submit" class="btn btn-success">Post a comment!</button
 						</form>
-						<hr>
+						<hr style="border-color:black">
 						<?php
 						}
 						?>
-			</div>
-		</div>
+					</div>  <!--  closes row -->
+			</div>  <!--  closes jumbotron -->
+		</div>  <!--  closes container fluid -->
 	</body>
 </html>
