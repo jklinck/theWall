@@ -2,20 +2,22 @@
 session_start();
 require_once('mywall_connection.php');
 $errors= array();
+$messageErrors= array();
+$commentErrors= array();
 // message validation
 if(isset($_POST['action']) && $_POST['action'] == "message")
 {
 	if(empty ($_POST['message']))
 	{
-		$errors[]="Please enter a message.";
+		$messageErrors[]="Please enter a message";
 	}
 	if(count($errors)>0)
 	{
-		$_SESSION['errors']= $errors;
+		$_SESSION['messageErrors']= $messageErrors;
 	}
 	else
 	{
-		$query= "INSERT INTO messages(message, users_id, created_at) VALUES 
+		$query= "INSERT INTO messages(message, user_id, created_at) VALUES 
 		('{$_POST['message']}', '{$_SESSION['userid']}', NOW())";
 		if(!run_mysql_query($query))
 		{
@@ -28,11 +30,11 @@ if(isset($_POST['action']) && $_POST['action']== "comment")
 {
 	if(empty ($_POST['comment']))
 	{
-		$errors[]="Please enter a comment.";
+		$commentErrors[]="Please enter a comment";
 	}
 	if(count($errors)>0)
 	{
-		$_SESSION['errors']= $errors;
+		$_SESSION['commentErrors']= $commentErrors;
 	}
 	else
 	{

@@ -1,7 +1,8 @@
 <?php
 session_start();
 require_once('mywall_connection.php');
-$errors=array();
+$regErrors=array();
+$logErrors=array();
 $success= array();
 
 // registration validation
@@ -9,43 +10,43 @@ if(isset($_POST['action']) && $_POST['action']=='register')
 {
 	if(empty($_POST['first_name']))
 	{
-		$errors[]="First name cannot be blank";
+		$regErrors[]="First name cannot be blank";
 	}
 	if(!ctype_alpha($_POST['first_name']) && !empty($_POST['first_name']))
 	{
-		$errors[]="First name cannot contain any numbers";
+		$regErrors[]="First name cannot contain any numbers";
 	}
 	if(empty($_POST['last_name']))
 	{
-		$errors[]="Last name cannot be blank";
+		$regErrors[]="Last name cannot be blank";
 	}
 	if(!ctype_alpha($_POST['last_name']) && !empty($_POST['last_name']))
 	{
-		$errors[]="Last name cannot contain any numbers";
+		$regErrors[]="Last name cannot contain any numbers";
 	}
 	if(empty($_POST['email']))
 	{
-		$errors[]="Email cannot be blank";
+		$regErrors[]="Email cannot be blank";
 	}
 	if(empty($_POST['password']))
 	{
-		$errors[]="Password cannot be blank";
+		$regErrors[]="Password cannot be blank";
 	}
 	if(strlen($_POST['password'])<6 && !empty($_POST['password']))
 	{
-		$errors[]="Your password must contain at least 6 characters";
+		$regErrors[]="Your password must contain at least 6 characters";
 	}
 	if(empty($_POST['passconf']))
 	{
-		$errors[]="Password confirmation cannot be blank";
+		$regErrors[]="Password confirmation cannot be blank";
 	}
 	if($_POST['passconf']!=$_POST['password'] && !empty($_POST['password']) && !empty($_POST['passconf']))
 	{
-		$errors[]="Password and password confirmation do not match";
+		$regErrors[]="Password and password confirmation do not match";
 	}
-	if(count($errors)>0)
+	if(count($regErrors)>0)
 	{
-		$_SESSION['errors']= $errors;
+		$_SESSION['regErrors']= $regErrors;
 		header("Location: mywall.php");
 	}
 	else
@@ -58,7 +59,7 @@ if(isset($_POST['action']) && $_POST['action']=='register')
 		}
 		else
 		{
-			$_SESSION['errors'] = array("Database write failed.");
+			$_SESSION['regErrors'] = array("Database write failed.");
 		}
 	}
 }
@@ -69,15 +70,15 @@ if(isset($_POST['action']) && $_POST['action'] =='login')
 	$entered_email= $_POST['email'];
 	if(empty($_POST['email']))
 	{
-		$errors[]="Email cannot be blank";
+		$logErrors[]="Email cannot be blank";
 	}
 	if(empty($_POST['password']))
 	{
-		$errors[]="Password cannot be blank";
+		$logErrors[]="Password cannot be blank";
 	}
-	if(count($errors)>0)
+	if(count($logErrors)>0)
 	{
-		$_SESSION['errors'] = $errors;
+		$_SESSION['logErrors'] = $logErrors;
 	}
 	else
 	{
@@ -88,7 +89,7 @@ if(isset($_POST['action']) && $_POST['action'] =='login')
 			$password = $user[0]['password'];
 			if($entered_pass!=$password)
 			{
-				$_SESSION['errors'] = array("Invalid login credentials.");
+				$_SESSION['logErrors'] = array("Invalid login credentials");
 			}
 			else
 			{
@@ -100,7 +101,7 @@ if(isset($_POST['action']) && $_POST['action'] =='login')
 		}
 		else
 		{
-			$_SESSION['errors'] = array("Invalid login credentials.");
+			$_SESSION['logErrors'] = array("Invalid login credentials");
 		}
 	}
 }

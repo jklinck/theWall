@@ -25,6 +25,11 @@ $comments= fetch($comment_query);
 		<link rel="stylesheet" type="text/css" href="mywall.css">
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<style>
+			.red{
+				color:red;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -56,6 +61,18 @@ $comments= fetch($comment_query);
 					</div>
 						<input type="hidden" name="action" value="message">
 						<button id="message" type="submit" class="btn btn-primary">Post a message!</button><br></br>
+						<div class="red">
+						<?php
+							if(isset($_SESSION['messageErrors']))
+							{
+								foreach($_SESSION['messageErrors'] as $messageError)
+								{
+									echo $messageError. "<br />";
+								}
+								unset($_SESSION['messageErrors']);
+							}
+						?>
+						</div>
 				</form>
 				<?php
 						foreach($messages as $message)
@@ -86,7 +103,17 @@ $comments= fetch($comment_query);
 							</div>
 							<input type="hidden" name="action" value="comment">
 							<input type="hidden" name="message_id" value="<?php echo $message['id']?>">
-							<button id="comment" type="submit" class="btn btn-success">Post a comment!</button
+							<button id="comment" type="submit" class="btn btn-success">Post a comment!</button>
+							<?php
+								if(isset($_SESSION['commentErrors']))
+								{
+									foreach($_SESSION['commentErrors'] as $commentError)
+									{
+										echo $commentError. "<br />";
+									}
+									unset($_SESSION['commentErrors']);
+								}
+							?>
 						</form>
 						<hr class="line">
 						<?php
