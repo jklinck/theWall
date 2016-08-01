@@ -11,14 +11,13 @@ if(isset($_POST['action']) && $_POST['action'] == "message")
 	{
 		$messageErrors[]="Please enter a message";
 	}
-	if(count($errors)>0)
+	if(count($messageErrors)>0)
 	{
 		$_SESSION['messageErrors']= $messageErrors;
 	}
 	else
 	{
-		$query= "INSERT INTO messages(message, user_id, created_at) VALUES 
-		('{$_POST['message']}', '{$_SESSION['userid']}', NOW())";
+		$query= "INSERT INTO messages(message, user_id, created_at) VALUES ('{$_POST['message']}', '{$_SESSION['userid']}', NOW())";
 		if(!run_mysql_query($query))
 		{
 			$_SESSION['errors']= array('Message did not connect with database');
@@ -32,7 +31,7 @@ if(isset($_POST['action']) && $_POST['action']== "comment")
 	{
 		$commentErrors[]="Please enter a comment";
 	}
-	if(count($errors)>0)
+	if(count($commentErrors)>0)
 	{
 		$_SESSION['commentErrors']= $commentErrors;
 	}

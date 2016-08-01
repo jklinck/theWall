@@ -28,6 +28,7 @@ $comments= fetch($comment_query);
 		<style>
 			.red{
 				color:red;
+				display:inline;
 			}
 		</style>
 	</head>
@@ -42,6 +43,7 @@ $comments= fetch($comment_query);
 				</form>
 			<div class="jumbotron">
 				<!-- errors -->
+				<div class="red">
 				<?php
 					if(isset($_SESSION['errors']))
 					{
@@ -52,6 +54,7 @@ $comments= fetch($comment_query);
 						unset($_SESSION['errors']);
 					}
 				?>
+				</div>
 				<div class="row">
 				<!-- post a message -->
 				<form action="mywall_messages.php" method="post">
@@ -60,7 +63,7 @@ $comments= fetch($comment_query);
 						<textarea class="form-control" name="message"></textarea>
 					</div>
 						<input type="hidden" name="action" value="message">
-						<button id="message" type="submit" class="btn btn-primary">Post a message!</button><br></br>
+						<button id="message" type="submit" class="btn btn-primary">Post a message!</button>
 						<div class="red">
 						<?php
 							if(isset($_SESSION['messageErrors']))
@@ -104,6 +107,7 @@ $comments= fetch($comment_query);
 							<input type="hidden" name="action" value="comment">
 							<input type="hidden" name="message_id" value="<?php echo $message['id']?>">
 							<button id="comment" type="submit" class="btn btn-success">Post a comment!</button>
+							<div class="red">
 							<?php
 								if(isset($_SESSION['commentErrors']))
 								{
@@ -114,6 +118,7 @@ $comments= fetch($comment_query);
 									unset($_SESSION['commentErrors']);
 								}
 							?>
+							</div>
 						</form>
 						<hr class="line">
 						<?php
