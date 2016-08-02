@@ -3,12 +3,12 @@
 	font-size: 63px;
 }
 
-
 /* mywall_sucess.php */
 #logOut{
 	margin-bottom: 10px;
 }
 .line{
 	border-color:black;
+	/* this is needed because bootstrap color for hr is the same color as jumbotron and thus will not show up on a jumbotron */
 }
 

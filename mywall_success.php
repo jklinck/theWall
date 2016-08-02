@@ -31,7 +31,7 @@ $comments= fetch($comment_query);
 				display:inline;
 			}
 			.comment{
-				margin-left:50px;
+				margin-left: 50px;
 			}
 		</style>
 	</head>
@@ -67,6 +67,7 @@ $comments= fetch($comment_query);
 					</div>
 						<input type="hidden" name="action" value="message">
 						<button id="message" type="submit" class="btn btn-primary">Post a message!</button>
+						<hr class="line">
 						<div class="red">
 						<?php
 							if(isset($_SESSION['messageErrors']))
@@ -80,16 +81,15 @@ $comments= fetch($comment_query);
 						?>
 						</div>
 				</form>
-				<div>
 				<?php
 						foreach($messages as $message)
 						{
 							echo '<strong>'.$message['first_name'].' '.$message['last_name']
 							.' - '.date('F j Y',strtotime($message['created_at'])).'</strong>'.'<br>'.
 							$message['message'].'<br></br>';
-				?>
-				<div class="comment">
-				<?php
+							?>
+							<div class="comment">
+									<?php
 									foreach($comments as $comment)
 									{
 										if($comment['message_id'] == $message['id'])
@@ -124,9 +124,8 @@ $comments= fetch($comment_query);
 							?>
 							</div>
 						</form>
-						<hr>
 					</div>
-				</div>
+						<hr class="line">
 						<?php
 						}
 						?>
