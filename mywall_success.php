@@ -30,6 +30,9 @@ $comments= fetch($comment_query);
 				color:red;
 				display:inline;
 			}
+			.comment{
+				margin-left:50px;
+			}
 		</style>
 	</head>
 	<body>
@@ -77,15 +80,16 @@ $comments= fetch($comment_query);
 						?>
 						</div>
 				</form>
+				<div>
 				<?php
 						foreach($messages as $message)
 						{
 							echo '<strong>'.$message['first_name'].' '.$message['last_name']
 							.' - '.date('F j Y',strtotime($message['created_at'])).'</strong>'.'<br>'.
 							$message['message'].'<br></br>';
-							?>
-							
-									<?php
+				?>
+				<div class="comment">
+				<?php
 									foreach($comments as $comment)
 									{
 										if($comment['message_id'] == $message['id'])
@@ -120,7 +124,9 @@ $comments= fetch($comment_query);
 							?>
 							</div>
 						</form>
-						<hr class="line">
+						<hr>
+					</div>
+				</div>
 						<?php
 						}
 						?>

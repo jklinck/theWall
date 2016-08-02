@@ -32,12 +32,35 @@ function fetch($query)
 	$result = mysqli_query($connection, $query);
 	$rows = array();
 
+	if($result)
+	{
+		foreach($result as $row) {
+			$rows[] = $row;
+		}
+
+		return $rows;
+	}
+}
+
+/*
+Below is the original function, I altered it so there wouldn't be an error if the query result was null
+
+function fetch($query)
+{
+	global $connection;
+
+	$result = mysqli_query($connection, $query);
+	$rows = array();
+
 	foreach($result as $row) {
 		$rows[] = $row;
 	}
 
 	return $rows;
 }
+*/
+
+
 
 /**
  * Use when doing an INSERT/DELETE/UPDATE query
