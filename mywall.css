@@ -2,6 +2,9 @@
 .wall{
 	font-size: 63px;
 }
+.red{
+        color:red;
+}
 
 /* mywall_sucess.php */
 #logOut{
